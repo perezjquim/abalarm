@@ -39,36 +39,25 @@ public class MainActivity extends AppCompatActivity
 
         TimePicker picker = findViewById(R.id.begintime);
 
-        Calendar firstDose = (Calendar) now.clone();
-        firstDose.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
-        firstDose.set(Calendar.MINUTE, picker.getCurrentMinute());
-        firstDose.set(Calendar.SECOND, 0);
-        //System.out.println("First dose: "+firstDose.getTime().toString());
+        Calendar nextDose = (Calendar) now.clone();
+        nextDose.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
+        nextDose.set(Calendar.MINUTE, picker.getCurrentMinute());
+        nextDose.set(Calendar.SECOND, 0);
+        //System.out.println("Next dose: "+nextDose.getTime().toString());
 
-        long remainingTime;
-
-        if(now.before(firstDose))
+        if(nextDose.before(now))
         {
-            remainingTime = firstDose.getTimeInMillis() - now.getTimeInMillis();
-
-            toast(this,"Alarm scheduled!");
-
-            toast(this,"First dose in " + remainingTime / (1000 * 60) + " minutes");
-            //System.out.println("First dose in " + remainingTime / (1000 * 60) + " minutes");
-        }
-        else
-        {
-            Calendar nextDose = (Calendar) firstDose.clone();
-            nextDose.add(Calendar.HOUR_OF_DAY, interval);
-
-            remainingTime = nextDose.getTimeInMillis() - now.getTimeInMillis();
-
-            toast(this,"Alarm scheduled!");
-
-            toast(this,"Next dose in " + remainingTime / (1000 * 60) + " minutes");
-            //System.out.println("Next dose in " + remainingTime / (1000 * 60) + " minutes");
+            nextDose.add(Calendar.DAY_OF_YEAR,1);
         }
 
-        AlarmHelper.scheduleStandardAlarm(this,"FirstDoseAlert", remainingTime);
+        AlarmHelper.scheduleRepeatingAlarm(this,"DoseAlert", nextDose, interval);
+
+        long minutesRemaining = (nextDose.getTimeInMillis() - now.getTimeInMillis()) / (1000 * 60);
+
+        toast(this,"Alarm scheduled!");
+
+        toast(this,"Next dose in " + minutesRemaining / (1000 * 60) + " minutes");
+
+        this.finish();
     }
 }

@@ -21,12 +21,6 @@
                 </action>
             </intent-filter>
         </receiver>
-        <receiver android:name=".FirstDoseAlert" android:exported="true">
-            <intent-filter>
-                <action android:name="FirstDoseAlert">
-                </action>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
