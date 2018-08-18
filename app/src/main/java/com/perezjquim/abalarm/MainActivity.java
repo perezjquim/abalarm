@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.perezjquim.AlarmHelper;
@@ -23,6 +24,29 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TimePicker timePicker = findViewById(R.id.begintime);
+        timePicker.setIs24HourView(true);
+
+        SeekBar seekBar = findViewById(R.id.interval);
+
+        TextView label = findViewById(R.id.lbl_progress);
+        label.setText((seekBar.getProgress() + 1) + "");
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                label.setText((progress + 1) + "");
+            }
+        });
     }
 
     public void setAlarm(View v)
@@ -56,7 +80,7 @@ public class MainActivity extends AppCompatActivity
 
         toast(this,"Alarm scheduled!");
 
-        toast(this,"Next dose in " + minutesRemaining / (1000 * 60) + " minutes");
+        toast(this,"Next dose in " + minutesRemaining + " minutes");
 
         this.finish();
     }
