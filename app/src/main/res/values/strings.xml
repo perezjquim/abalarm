@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">abalarm</string>
+    <string name="app_name">AB Alarm</string>
+    <string name="TITLE">Periodic alarm set-up</string>
+    <string name="TXT_CONFIRM">Set new alarm</string>
+    <string name="TXT_INTERVAL">Interval between doses (hours)</string>
+    <string name="_1">1</string>
+    <string name="_10">10</string>
+    <string name="TXT_FIRSTDOSE">Time of first dose</string>
 </resources>
