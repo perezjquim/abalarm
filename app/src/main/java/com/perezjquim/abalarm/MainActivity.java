@@ -2,18 +2,14 @@ package com.perezjquim.abalarm;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.perezjquim.AlarmHelper;
-import com.perezjquim.SharedPreferencesHelper;
-import com.perezjquim.UIHelper;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import static com.perezjquim.UIHelper.toast;
 
@@ -24,6 +20,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         TimePicker timePicker = findViewById(R.id.begintime);
         timePicker.setIs24HourView(true);
@@ -55,9 +52,6 @@ public class MainActivity extends AppCompatActivity
         int interval = seekBar.getProgress() + 1;
         //System.out.println("Interval: " + interval + " hours");
 
-        SharedPreferencesHelper prefs = new SharedPreferencesHelper(this);
-        prefs.setInt("config","interval", interval);
-
         Calendar now = Calendar.getInstance();
         //System.out.println("Now: "+now.getTime().toString());
 
@@ -74,7 +68,7 @@ public class MainActivity extends AppCompatActivity
             nextDose.add(Calendar.DAY_OF_YEAR,1);
         }
 
-        AlarmHelper.scheduleRepeatingAlarm(this,"DoseAlert", nextDose, interval);
+        AlarmHelper.scheduleRepeatingAlarm(this,DoseAlert.class, nextDose, interval * 1000 * 3600);
 
         long minutesRemaining = (nextDose.getTimeInMillis() - now.getTimeInMillis()) / (1000 * 60);
 
