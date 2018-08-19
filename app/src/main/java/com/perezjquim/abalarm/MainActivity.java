@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         TimePicker timePicker = findViewById(R.id.begintime);
         timePicker.setIs24HourView(true);
+        timePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 
         SeekBar seekBar = findViewById(R.id.interval);
 

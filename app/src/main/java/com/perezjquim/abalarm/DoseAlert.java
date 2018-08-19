@@ -12,7 +12,6 @@ public class DoseAlert extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         System.out.println("! Dose !");
-
-        UIHelper.notify(context, "AB Alarm", "Time to take your anti-biotic!");
+        UIHelper.notify(context,"AB Alarm", "Time to take your anti-biotic!");
     }
 }

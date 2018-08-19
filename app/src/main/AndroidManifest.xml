@@ -11,14 +11,12 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".DoseAlert" android:exported="true">
+        <receiver android:name=".DoseAlert" android:exported="true" android:enabled="true">
             <intent-filter>
-                <action android:name="DoseAlert">
-                </action>
+                <action android:name="com.perezjquim.abalarm.DoseAlert"/>
             </intent-filter>
         </receiver>
     </application>
