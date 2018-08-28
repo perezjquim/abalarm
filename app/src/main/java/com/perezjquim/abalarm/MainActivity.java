@@ -7,10 +7,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.perezjquim.AlarmHelper;
-
 import java.util.Calendar;
 
+import static com.perezjquim.AlarmHelper.cancelAlarm;
+import static com.perezjquim.AlarmHelper.scheduleRepeatingAlarm;
 import static com.perezjquim.UIHelper.toast;
 
 public class MainActivity extends AppCompatActivity
@@ -68,13 +68,22 @@ public class MainActivity extends AppCompatActivity
             nextDose.add(Calendar.DAY_OF_YEAR,1);
         }
 
-        AlarmHelper.scheduleRepeatingAlarm(this,DoseAlert.class, nextDose, interval * 1000 * 3600);
+        scheduleRepeatingAlarm(this,DoseAlert.class, nextDose, interval * 1000 * 3600);
 
         long minutesRemaining = (nextDose.getTimeInMillis() - now.getTimeInMillis()) / (1000 * 60);
 
         toast(this,"Alarm scheduled!");
 
         toast(this,"Next dose in " + minutesRemaining + " minutes");
+
+        this.finish();
+    }
+
+    public void unsetAlarm(View v)
+    {
+        cancelAlarm(this, DoseAlert.class);
+
+        toast(this,"All alarms were cancelled!");
 
         this.finish();
     }
